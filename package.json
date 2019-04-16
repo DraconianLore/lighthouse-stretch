@@ -1,0 +1,11 @@
+{
+  "name": "lighthouse-stretch",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "npm/npm",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-lighthouselabs": "lighthouse-labs/eslint-config-lighthouselabs"
+  }
+}
