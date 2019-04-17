@@ -22,31 +22,31 @@ Functional requirements:
 Display requirements:
 ====================
   ## BAR CHART
-    Display a list of single values, horizontally as a bar chart
-      * Numerical values should be displayed inside the bar
-      * Position of values should be customizable - Top, centre or bottom of the bar
-    Bar sizes dependant on data passed in
-      Bar width dependant on total amount of values passed
-      Bar height dependant on values of data
-    Bar porperties should be customizable
-      * Bar colour
-      * Label colour
-      * Bar spacing(between bars)
-      * Bar Chart aces
-    x-axis should show labels for each data value
-      ? how to structure ?
-    Y-axis should show ticks at certain values
-      ? how to configure ? part of data? option in function?
-    Title of the bar chart able to be set and shown dynamically
-    Title of the bar chart is customizable
-      * Font Size
-      * Font Colour
+  Display a list of single values, horizontally as a bar chart
+  * Numerical values should be displayed inside the bar
+  * Position of values should be customizable - Top, centre or bottom of the bar
+  Bar sizes dependant on data passed in
+  Bar width dependant on total amount of values passed
+  Bar height dependant on values of data
+  Bar porperties should be customizable
+  * Bar colour
+  * Label colour
+  * Bar spacing(between bars)
+  * Bar Chart aces
+  x-axis should show labels for each data value
+  * *how to structure*
+  Y-axis should show ticks at certain values
+  * *how to configure ? part of data? option in function?*
+  Title of the bar chart able to be set and shown dynamically
+  Title of the bar chart is customizable
+  * Font Size
+  * Font Colour
 
   ## MULTIPLE VALUE (STACKED) BAR CHARTS
-    Allow user to pass multiple values to each bar
-      ? how to do diferently from a single chart ?
-    Support all feature of a single Bar Chart
-      Customizable bar colours, per value
-      Customizable label colours
+  Allow user to pass multiple values to each bar
+  * *how to do diferently from a single chart?*
+  Support all feature of a single Bar Chart
+  * Customizable bar colours, per value
+  * Customizable label colours
 
 
