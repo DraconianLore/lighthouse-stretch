@@ -1,14 +1,6 @@
 // Main JavaScript file in Lighthouse Labs Stretch Project - Steven Wing
 
 
-// Add stylesheet to document head
-
-  var addStyleSheet = document.createElement("link");
-  addStyleSheet.setAttribute("rel", "stylesheet");
-  addStyleSheet.setAttribute("type", "text/css");
-  addStyleSheet.setAttribute("href", "main.css");
-  document.head.append(addStyleSheet);
-
 
 // Function signature to draw a bar chart
 const drawBarChart = function(data, options, element){
