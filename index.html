@@ -6,6 +6,36 @@
   <script type="text/javascript" src="./main.js"></script>
 </head>
 <body>
+  <center>
+    <td>
+      <td width="50%" height="50%">
+        Bar Graph to go under here
+        <select id=colourPicker>
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="black">Black</option>
+        </select>
+        <button onclick="newBar()">Generate</button>
 
+        <div id="barGraphSpace">
+
+        </div>
+        <script>
+            function newBar() {
+              document.getElementById('barGraphSpace').innerHTML = '';
+              let options = {
+              colour: colourPicker.value,
+              width: 50
+              }
+              drawBarChart([5,7,8,3], options, document.getElementById('barGraphSpace'));
+            }
+
+          </script>
+
+
+    </td>
+    </td>
+  </center>
 </body>
 </html>
