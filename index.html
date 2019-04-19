@@ -18,8 +18,7 @@
         </select>
         <button onclick="newBar(colourPicker.value)">Generate</button>
         <br><br>
-        Bar Graph to go under here
-
+        First Bargraph to go under here
         <br><br>
         <div id="barGraphSpace">
 
@@ -38,6 +37,42 @@
               }
               // call function to generate bar graph
               drawBarChart(sendData, options, document.getElementById('barGraphSpace'));
+            }
+
+          </script>
+          <p>
+
+          </p>
+          <input type="text" id="dataToSend2" value="59, 16, 7, 66, 98, 80"><br><br>
+          <select id=colourPicker2>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="black">Black</option>
+          </select>
+          <button onclick="newBar2(colourPicker2.value)">Generate</button>
+          <br><br>
+          Second Bargraph to go under here
+
+          <br><br>
+          <div id="barGraphSpace2">
+
+          </div>
+          <script>
+            const newBar2 = function(colour) {
+              // get numbers and convert to an array
+              let sendData = (document.getElementById('dataToSend2').value).split(',').map(function(numbers){
+                return parseInt(numbers, 10);
+              });
+              // get colour (and eventually size of window/frame area for graph)
+              document.getElementById('barGraphSpace2').innerHTML = '';
+              let options = {
+                colour: colour,
+                width: '600',
+                heigt: '500'
+              }
+              // call function to generate bar graph
+              drawBarChart(sendData, options, document.getElementById('barGraphSpace2'));
             }
 
           </script>
