@@ -43,7 +43,7 @@
           <p>
 
           </p>
-          <input type="text" id="dataToSend2" value="59, 16, 7, 66, 98, 80"><br><br>
+          <input type="text" id="dataToSend2" value="20, 11, 7, 18, 19, 3"><br><br>
           <select id=colourPicker2>
             <option value="red">Red</option>
             <option value="green">Green</option>
@@ -52,8 +52,7 @@
           </select>
           <button onclick="newBar2(colourPicker2.value)">Generate</button>
           <br><br>
-          Second Bargraph to go under here
-
+          Add a second set of bars
           <br><br>
           <div id="barGraphSpace2">
 
@@ -65,14 +64,11 @@
                 return parseInt(numbers, 10);
               });
               // get colour (and eventually size of window/frame area for graph)
-              document.getElementById('barGraphSpace2').innerHTML = '';
               let options = {
-                colour: colour,
-                width: '600',
-                heigt: '500'
+                color: colour
               }
               // call function to generate bar graph
-              drawBarChart(sendData, options, document.getElementById('barGraphSpace2'));
+              multiValueBarChart(sendData, options, document.getElementById('outerShell'));
             }
 
           </script>
