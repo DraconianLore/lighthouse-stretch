@@ -46,13 +46,16 @@ const drawBarChart = function(data, options, element){
       }
     }
   let gHeight = graphHeight / largestBar;
+  let barDelay = 0;
 
    // Generate bar graph
   for (let i = 0; i < numberOfBars; i++) {
     // construct bars
     let barValue = document.createElement("div");
     barValue.style.width = barWidth + 'px';
-    barValue.style.height = (data[i] * gHeight) + 'px';
+    barValue.style.height = '0px';
+    barDelay += 200;
+
     barValue.style.background = colourToUse;
     barValue.style.display = 'table'; //breaks ff
     barValue.id = 'bar' + i;
@@ -69,7 +72,15 @@ const drawBarChart = function(data, options, element){
     let barDevider = document.createElement("div");
     barDevider.style.width = (barWidth / 2) + 'px';
     barDevider.style.background = "white";
+
+    // insert the bar into the graph
     outerShell.appendChild(barValue);
+
+    let transformHeight = (data[i] * gHeight) + 'px';
+
+    setTimeout(() => {
+      enlargeBar(transformHeight, 'bar' + i);
+    }, barDelay);
 
     // Add space between bars
     if (i + 1 < numberOfBars){
@@ -115,13 +126,11 @@ const multiValueBarChart = function(data, options, element) {
 
   // Check if there is more data sent than existing graph and return error if there is
   if (!document.getElementById('bar' + (numberOfBars - 1))) {
-    console.log('Error: Second sed of data cannot contain more values than existing graph');
-    console.log('Please try again');
+    alert('Error: Second sed of data cannot contain more values than existing graph \nPlease try again');
     return;
   }
   if (document.getElementById('barTwo0')) {
-    console.log('Error: Second data set already exists')
-    console.log('You may only have 2 sets of values per graph');
+    alert('Error: Second data set already exists. \nYou may only have 2 sets of values per graph');
     return;
   }
 
@@ -143,16 +152,18 @@ const multiValueBarChart = function(data, options, element) {
   }
 
   let gHeight = (parseInt(element.style.height,10)) / largestBar;
+  let barDelay = 0;
 
   for (let i = 0; i < numberOfBars; i++) {
     let currentBar = document.getElementById('bar' + i);
     currentBar.style.width =  barWidth + 'px';
 
+    barDelay += 200;
 
     let barValue = document.createElement("div");
     barValue.style.width = barWidth + 'px';
-    barValue.style.height = (data[i] * gHeight) + 'px';
     barValue.style.background = secondColour;
+    barValue.style.height = '0px';
     barValue.style.display = 'table'; //breaks ff
     barValue.id = 'barTwo' + i;
 
@@ -161,7 +172,17 @@ const multiValueBarChart = function(data, options, element) {
     barValueNumber.innerText = data[i];
     barValue.appendChild(barValueNumber);
 
+    // set transform height
+    let transformHeight = (data[i] * gHeight) + 'px';
     currentBar.parentNode.insertBefore(barValue, currentBar.nextSibling);
+    setTimeout(() => {
+      enlargeBar(transformHeight, 'barTwo' + i);
+    }, barDelay);
 
   }
+}
+
+// set bars to enlarge
+const enlargeBar = function(newHeight, barToResize) {
+  $('#' + barToResize).animate({height: newHeight}, 1000);
 }
