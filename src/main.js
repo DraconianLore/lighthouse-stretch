@@ -4,7 +4,7 @@
 // Function signature to draw a bar chart
 const drawBarChart = function(data, options, element){
   let numberOfBars = data.length;
-  let barText = 'black';
+  let barText = 'white';
 
   // Set default colour to Blue if there is no colour option sent
   let colourToUse = 'blue';
@@ -12,10 +12,6 @@ const drawBarChart = function(data, options, element){
     colourToUse = options.colour;
   }
 
-  //change text colour on bars if bar is set to black
-  if (colourToUse == 'black') {
-    barText = '#66ffff';
-  }
 
   // if no width provided assign width of 300px
   let graphWidth = 300;
@@ -52,12 +48,14 @@ const drawBarChart = function(data, options, element){
   for (let i = 0; i < numberOfBars; i++) {
     // construct bars
     let barValue = document.createElement("div");
+    barValue.style.display = 'table';
+    barValue.style = "table-layout: fixed";
     barValue.style.width = barWidth + 'px';
     barValue.style.height = '0px';
     barDelay += 200;
 
     barValue.style.background = colourToUse;
-    barValue.style.display = 'table'; //breaks ff
+
     barValue.id = 'bar' + i;
     barValue.value = data[i];
 
@@ -97,7 +95,7 @@ const drawBarChart = function(data, options, element){
     let barLabel = document.createElement("div");
     barLabel.style.width = barWidth + 'px';
     barLabel.style.height = (graphHeight / 2) + 'px';
-    barLabel.style.background = colourToUse;
+    barLabel.style.background = '#999999';
 
     let barDevider = document.createElement("div");
     barDevider.style.width = (barWidth / 2) + 'px';
@@ -105,8 +103,8 @@ const drawBarChart = function(data, options, element){
 
     let labelText = document.createElement('div');
     labelText.style = 'writing-mode: vertical-rl; text-orientation: sideways; padding-top: 15px';
-    labelText.style.color = barText;
-    labelText.innerText = 'Data Value ' + (i + 1); // As the function signature has no area set
+    labelText.style.color = '#eeeeee';
+    labelText.innerText = 'Data Set ' + (i + 1); // As the function signature has no area set
                                               // aside for Labels I have just named it simply
 
 
@@ -136,9 +134,11 @@ const multiValueBarChart = function(data, options, element) {
 
   let secondColour = options.color;
   // check if bars are the same colour and change if they are
-  if (secondColour == document.getElementById('bar0').style.background) {
+  if (secondColour == document.getElementById('bar0').style.backgroundColor) {
     secondColour = 'purple';
   }
+
+  let barText = 'white';
   //set bar width based on graph size
   let barWidth = parseInt(document.getElementById('bar0').style.width,10) / 2;
   let largestBar = 0;
@@ -161,15 +161,17 @@ const multiValueBarChart = function(data, options, element) {
     barDelay += 200;
 
     let barValue = document.createElement("div");
+    barValue.style.display = 'table';
+    barValue.style = "table-layout: fixed";
     barValue.style.width = barWidth + 'px';
     barValue.style.background = secondColour;
     barValue.style.height = '0px';
-    barValue.style.display = 'table'; //breaks ff
     barValue.id = 'barTwo' + i;
 
     let barValueNumber = document.createElement('div');
     barValueNumber.style = 'display: table-cell; vertical-align: bottom'
     barValueNumber.innerText = data[i];
+    barValueNumber.style.color = barText;
     barValue.appendChild(barValueNumber);
 
     // set transform height
