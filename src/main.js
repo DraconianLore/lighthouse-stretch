@@ -68,7 +68,7 @@ const drawBarChart = function(data, options, element){
 
     // construct devider for between bars
     let barDevider = document.createElement("div");
-    barDevider.style.width = (barWidth / 2) + 'px';
+    barDevider.style.width = (barWidth / 3) + 'px';
     barDevider.style.background = "white";
 
     // insert the bar into the graph
@@ -88,11 +88,12 @@ const drawBarChart = function(data, options, element){
 
   // Generate Labels
   let labelShell = document.createElement("div");
-  labelShell.style = 'display:flex; flex-wrap: nowrap; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; align-items: flex-end; justify-content: center; padding: 10px; align: center';
+  labelShell.style = 'display:flex; flex-wrap: nowrap; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; align-items: flex-end; justify-content: center; padding: 10px;';
   element.appendChild(labelShell);
 
   for (let i = 0; i < numberOfBars; i++) {
     let barLabel = document.createElement("div");
+    barLabel.style = 'display: flex; align-items: center; justify-content: center'
     barLabel.style.width = barWidth + 'px';
     barLabel.style.height = (graphHeight / 2) + 'px';
     barLabel.style.background = '#999999';
@@ -102,7 +103,7 @@ const drawBarChart = function(data, options, element){
     barDevider.style.background = "white";
 
     let labelText = document.createElement('div');
-    labelText.style = 'writing-mode: vertical-rl; text-orientation: sideways; padding-top: 15px';
+    labelText.style = 'writing-mode: vertical-rl; text-orientation: sideways';
     labelText.style.color = '#eeeeee';
     labelText.innerText = 'Data Set ' + (i + 1); // As the function signature has no area set
                                               // aside for Labels I have just named it simply
