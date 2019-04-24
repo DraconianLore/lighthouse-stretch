@@ -171,12 +171,18 @@ const multiValueBarChart = function(data, options, element) {
 
     let barValueNumber = document.createElement('div');
     barValueNumber.style = 'display: table-cell; vertical-align: bottom'
-    barValueNumber.innerText = data[i];
     barValueNumber.style.color = barText;
     barValue.appendChild(barValueNumber);
 
-    // set transform height
+    // set transform height, check if new bars are larger, if so set height to top of space
     let transformHeight = (data[i] * gHeight) + 'px';
+    if (data[i] > largestBar) {
+      transformHeight = (largestBar * gHeight + 10) + 'px';
+      barValueNumber.style.fontWeight = 'bold';
+      barValueNumber.innerText = '^ \n';
+    }
+    barValueNumber.innerText += data[i];
+
     currentBar.parentNode.insertBefore(barValue, currentBar.nextSibling);
     setTimeout(() => {
       enlargeBar(transformHeight, 'barTwo' + i);
