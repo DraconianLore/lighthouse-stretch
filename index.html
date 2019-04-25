@@ -11,13 +11,14 @@
     <td>
       <td width="50%" height="50%">
         <input type="text" id="dataToSend" value="8, 20, 7, 3, 17, 15"><br><br>
+        <input type="text" id="titleText" value="Bargraph Title"><br><br>
         <select id=colourPicker>
           <option value="red">Red</option>
           <option value="green">Green</option>
           <option value="blue">Blue</option>
           <option value="black">Black</option>
         </select>
-        <button onclick="newBar(colourPicker.value)">Generate</button>
+        <button onclick="newBar(colourPicker.value, titleText.value)">Generate</button>
         <br><br>
         First Bargraph to go under here
         <br><br>
@@ -25,7 +26,7 @@
 
         </div>
         <script>
-            const newBar = function(colour) {
+            const newBar = function(colour, titleText) {
               // get numbers and convert to an array
               let sendData = (document.getElementById('dataToSend').value).split(',').map(function(numbers){
                 return parseInt(numbers, 10);
@@ -34,7 +35,8 @@
               document.getElementById('barGraphSpace').innerHTML = '';
               let options = {
                 backgroundColor: colour,
-                width: '500'
+                width: '500',
+                title: titleText,
               }
               // call function to generate bar graph
               drawBarChart(sendData, options, document.getElementById('barGraphSpace'));
@@ -68,7 +70,7 @@
               let options = {
                 backgroundColor: colour,
                 color: '#33cc33',
-                alignment: 'center'
+                alignment: 'top'
               }
               // call function to generate bar graph
               multiValueBarChart(sendData, options, document.getElementById('outerShell'));

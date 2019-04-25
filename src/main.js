@@ -48,11 +48,20 @@ const drawBarChart = function(data, options, element){
   if (options.height) {
     graphHeight = options.height;
   }
+  // generate graph title
+  let graphTitle = document.createElement('div');
+  graphTitle.style = 'display:flex; flex-wrap: nowrap; height: ' + (graphHeight / 5) + 'px; width: ' + graphWidth + 'px; align-items: center; justify-content: center; padding: 10px; align: center';
+  graphTitle.style.backgroundColor = '#eeeeee';
+  graphTitle.style.color = "black";
+  graphTitle.innerHTML = '<h1>' + options.title + '</h1>';
+  element.appendChild(graphTitle);
 
   // Generate bar graph shell
+  graphHeight = graphHeight * 0.8;
   let outerShell = document.createElement("div");
   outerShell.style = 'display:flex; flex-wrap: nowrap; height: ' + graphHeight + 'px; width: ' + graphWidth + 'px; align-items: flex-end; justify-content: center; padding: 10px; border-style: solid; border-width: 5px; align: center';
   outerShell.id = 'outerShell';
+
   element.appendChild(outerShell);
 
   // Get largest bar size and make graph scalable
