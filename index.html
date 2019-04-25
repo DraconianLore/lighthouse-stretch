@@ -33,7 +33,7 @@
               // get colour (and eventually size of window/frame area for graph)
               document.getElementById('barGraphSpace').innerHTML = '';
               let options = {
-                colour: colour,
+                backgroundColor: colour,
                 width: '500'
               }
               // call function to generate bar graph
@@ -66,7 +66,9 @@
               });
               // get colour (and eventually size of window/frame area for graph)
               let options = {
-                color: colour
+                backgroundColor: colour,
+                color: '#33cc33',
+                alignment: 'center'
               }
               // call function to generate bar graph
               multiValueBarChart(sendData, options, document.getElementById('outerShell'));

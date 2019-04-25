@@ -1,15 +1,36 @@
 // Main JavaScript file in Lighthouse Labs Stretch Project - Steven Wing
 
+/*
+  Usage:
+    drawBarChart (data, options, element)
+      data: an array of numbers (the values to be put in the graph)
+      options:  backgroundColor - bar colour (default blue)
+                width - width of the entire bar graph(default: 300px)
+                height: height of the entire bar graph(default: 300px)
+                color - colour of the text inside the bars(default: white)
+                alignment - value number in bar: top, center, bottom
+      element:  the element ID of the DOM element you want the bar placed into
 
-// Function signature to draw a bar chart
+  For multiple value charts, first draw the first chart, then
+  call 'multiValueBarChart' function  with the same arguments as the initial bar.
+  Restrictions:
+    Second set of bars cannot have more data values than the first
+    Currently you may only have two sets of data per graph
+*/
+
+// Draw initial bar chart
 const drawBarChart = function(data, options, element){
   let numberOfBars = data.length;
+  // set text colour
   let barText = 'white';
+    if (options.color) {
+    barText = options.color;
+  }
 
   // Set default colour to Blue if there is no colour option sent
   let colourToUse = 'blue';
-  if (options.colour) {
-    colourToUse = options.colour;
+  if (options.backgroundColor) {
+    colourToUse = options.backgroundColor;
   }
 
 
@@ -48,8 +69,24 @@ const drawBarChart = function(data, options, element){
   for (let i = 0; i < numberOfBars; i++) {
     // construct bars
     let barValue = document.createElement("div");
-    barValue.style.display = 'table';
-    barValue.style = "table-layout: fixed";
+    barValue.style.display = 'flex';
+    barValue.style.flexDirection = "column-reverse";
+    barValue.style.justifyContent = "flex-end";
+    // check for alignment
+    if (options.alignment) {
+      switch(options.alignment) {
+        case 'center':
+          barValue.style.justifyContent = 'center';
+          break;
+        case 'top':
+          barValue.style.justifyContent = 'flex-end';
+          break;
+        case 'bottom':
+          barValue.style.justifyContent = 'flex-start';
+          break;
+      }
+    }
+
     barValue.style.width = barWidth + 'px';
     barValue.style.height = '0px';
     barDelay += 200;
@@ -60,7 +97,7 @@ const drawBarChart = function(data, options, element){
     barValue.value = data[i];
 
     let barValueNumber = document.createElement('div');
-    barValueNumber.style = 'display: table-cell; vertical-align: bottom'
+    barValueNumber.style = 'display: flex; justify-content: center';
     barValueNumber.style.color = barText;
     barValueNumber.innerText = data[i];
     barValue.appendChild(barValueNumber);
@@ -88,7 +125,9 @@ const drawBarChart = function(data, options, element){
 
   // Generate Labels
   let labelShell = document.createElement("div");
-  labelShell.style = 'display:flex; flex-wrap: nowrap; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; align-items: flex-end; justify-content: center; padding: 10px;';
+  labelShell.style = 'display:flex; flex-wrap: nowrap; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; justify-content: center; padding: 10px;';
+  labelShell.style.alignItems= 'flex-end';
+
   element.appendChild(labelShell);
 
   for (let i = 0; i < numberOfBars; i++) {
@@ -119,6 +158,7 @@ const drawBarChart = function(data, options, element){
 
 }
 
+// Draw second data set on initial graph
 const multiValueBarChart = function(data, options, element) {
   // Reduce width of existing bars and add the new bar beside it
   let numberOfBars = data.length;
@@ -133,13 +173,19 @@ const multiValueBarChart = function(data, options, element) {
     return;
   }
 
-  let secondColour = options.color;
+  let secondColour = 'blue';
+  if (options.backgroundColor) {
+    secondColour = options.backgroundColor
+  }
   // check if bars are the same colour and change if they are
   if (secondColour == document.getElementById('bar0').style.backgroundColor) {
     secondColour = 'purple';
   }
 
   let barText = 'white';
+  if (options.color) {
+    barText = options.color;
+  }
   //set bar width based on graph size
   let barWidth = parseInt(document.getElementById('bar0').style.width,10) / 2;
   let largestBar = 0;
@@ -170,7 +216,23 @@ const multiValueBarChart = function(data, options, element) {
     barValue.id = 'barTwo' + i;
 
     let barValueNumber = document.createElement('div');
-    barValueNumber.style = 'display: table-cell; vertical-align: bottom'
+    barValue.style.display = 'flex';
+    barValue.style.flexDirection = "column-reverse";
+    barValue.style.justifyContent = "flex-end";
+    // check for alignment
+    if (options.alignment) {
+      switch(options.alignment) {
+        case 'center':
+          barValue.style.justifyContent = 'center';
+          break;
+        case 'top':
+          barValue.style.justifyContent = 'flex-end';
+          break;
+        case 'bottom':
+          barValue.style.justifyContent = 'flex-start';
+          break;
+      }
+    }
     barValueNumber.style.color = barText;
     barValue.appendChild(barValueNumber);
 
