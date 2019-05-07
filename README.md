@@ -1,4 +1,4 @@
-# Stretch Project
+# Stretch Project - Bar Graph Generator
 Stretch project for Lighthouse Labs by Steven Wing
 
 **Usage:**
