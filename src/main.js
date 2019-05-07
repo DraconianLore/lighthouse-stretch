@@ -8,7 +8,9 @@
                 width - width of the entire bar graph(default: 300px)
                 height: height of the entire bar graph(default: 300px)
                 color - colour of the text inside the bars(default: white)
-                alignment - value number in bar: top, center, bottom
+                alignment - alignment of the value inside the bar: top, center, bottom
+                titleColour - Colour of the Title text
+                titleSize - size of title font in pixels
       element:  the element ID of the DOM element you want the bar placed into
 
   For multiple value charts, first draw the first chart, then
@@ -53,11 +55,20 @@ const drawBarChart = function(data, options, element){
   graphTitle.style = 'display:flex; flex-wrap: nowrap; height: ' + (graphHeight / 5) + 'px; width: ' + graphWidth + 'px; align-items: center; justify-content: center; padding: 10px; align: center';
   graphTitle.style.backgroundColor = '#eeeeee';
   graphTitle.style.color = "black";
-  graphTitle.innerHTML = '<h1>' + options.title + '</h1>';
+  if (options.titleColour) {
+    graphTitle.style.color = options.titleColour;
+  }
+  graphTitle.style.fontSize = "36px";
+  if (options.titleSize) {
+    graphTitle.style.fontSize = options.titleSize + 'px';
+  }
+  graphTitle.innerHTML = '<b>' + options.title + '</b>';
   element.appendChild(graphTitle);
 
-  // Generate bar graph shell
   graphHeight = graphHeight * 0.8;
+
+
+  // Generate bar graph shell
   let outerShell = document.createElement("div");
   outerShell.style = 'display:flex; flex-wrap: nowrap; height: ' + graphHeight + 'px; width: ' + graphWidth + 'px; align-items: flex-end; justify-content: center; padding: 10px; border-style: solid; border-width: 5px; align: center';
   outerShell.id = 'outerShell';
@@ -134,7 +145,7 @@ const drawBarChart = function(data, options, element){
 
   // Generate Labels
   let labelShell = document.createElement("div");
-  labelShell.style = 'display:flex; flex-wrap: nowrap; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; justify-content: center; padding: 10px;';
+  labelShell.style = 'display:flex; height: ' + (  graphHeight / 2) + 'px; width: ' + graphWidth + 'px; justify-content: center; padding: 10px;';
   labelShell.style.alignItems= 'flex-end';
 
   element.appendChild(labelShell);
@@ -154,7 +165,8 @@ const drawBarChart = function(data, options, element){
     labelText.style = 'writing-mode: vertical-rl; text-orientation: sideways';
     labelText.style.color = '#eeeeee';
     labelText.innerText = 'Data Set ' + (i + 1); // As the function signature has no area set
-                                              // aside for Labels I have just named it simply
+              // aside for Labels I have just named it simply. Would like to see it added with
+              // first bar sets number array, changing it to an object array in the future
 
 
     labelShell.appendChild(barLabel);
@@ -174,14 +186,14 @@ const multiValueBarChart = function(data, options, element) {
 
   // Check if there is more data sent than existing graph and return error if there is
   if (!document.getElementById('bar' + (numberOfBars - 1))) {
-    alert('Error: Second sed of data cannot contain more values than existing graph \nPlease try again');
+    alert('Error: Second set of data cannot contain more values than existing graph \nPlease try again');
     return;
   }
   if (document.getElementById('barTwo0')) {
     alert('Error: Second data set already exists. \nYou may only have 2 sets of values per graph');
     return;
   }
-
+  // set colours for second bad and bar text
   let secondColour = 'blue';
   if (options.backgroundColor) {
     secondColour = options.backgroundColor
@@ -190,11 +202,11 @@ const multiValueBarChart = function(data, options, element) {
   if (secondColour == document.getElementById('bar0').style.backgroundColor) {
     secondColour = 'purple';
   }
-
   let barText = 'white';
   if (options.color) {
     barText = options.color;
   }
+
   //set bar width based on graph size
   let barWidth = parseInt(document.getElementById('bar0').style.width,10) / 2;
   let largestBar = 0;
