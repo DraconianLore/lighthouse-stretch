@@ -1,8 +1,9 @@
 # Stretch Project
-Stretch project for Lighthouse Labs
+Stretch project for Lighthouse Labs by Steven Wing
 
 **Usage:**
-drawBarChart (data, options, element)
+`drawBarChart (data, options, element)`<br>`
+ multiValueBarChart (data, options, element)`
    
 * data: an array of numbers (the values to be put in the graph)
 * options:  
@@ -15,10 +16,8 @@ drawBarChart (data, options, element)
   - titleSize - size of title font in pixels
 * element:  the element ID of the DOM element you want the bar placed into
 
-  *For multiple value charts, first draw the first chart, then
-  call 'multiValueBarChart' function  with the same arguments as the initial bar.*
-  
-  Restrictions:
-    Second set of bars cannot have more data values than the first
+*For multiple value charts, draw the first chart with drawBarGraph function, then call 'multiValueBarChart' function.*<br>
+  Restrictions:<br>
+    Second set of bars cannot have more data values than the first<br>
     Currently you may only have two sets of data per graph
 
