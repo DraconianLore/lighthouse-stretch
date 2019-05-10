@@ -1,5 +1,6 @@
 # Stretch Project - Bar Graph Generator
-Stretch project for Lighthouse Labs by Steven Wing
+Stretch project for Lighthouse Labs by Steven Wing<br>
+*Created prior to going over the requirements agian, made side by side graphs instead of stacked)*
 
 **Usage:**
 `drawBarChart (data, options, element)`<br>`
