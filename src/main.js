@@ -23,6 +23,7 @@ const drawBarChart = function(data, options, element){
   // set current working bar set
   let currenrBarSet;
 
+
   // check options and set defaults if empty
   let graphHeight = 300;
   if (options.height) {
@@ -66,6 +67,8 @@ const drawBarChart = function(data, options, element){
         break;
     }
   }
+  let barWidth = (graphWidth / numberOfBars) * 1.5;
+
 
   // create title and container if this is the first data set
   if (!document.getElementById('outerShell')) {
@@ -83,6 +86,11 @@ const drawBarChart = function(data, options, element){
     outerShell.style.borderStyle = 'solid';
     outerShell.style.borderWidth = '5px';
     element.appendChild(outerShell);
+    // generate empty bars
+
+    for (let i = 0; i < numberOfBars; i++) {
+      generateEmptyBars(i, barWidth);
+    }
   } else {
     //check data sets are compatible or throw an error
     if (!document.getElementById('barSet1.' + numberOfBars - 1).value) {
@@ -103,7 +111,7 @@ const drawBarChart = function(data, options, element){
   }
   // Check for and add largest existing bar
   for (let i = 0; i < 5; i++) {
-    if (document.getElementById('barSet' + i + '.1').value) {
+    if (document.getElementById('barSet' + i + '.1').value > 0) {
       let currentSetLargest = 0;
       for (let x = 0; x < numberOfBars; x++) {
         currentSetLargest = 0;
@@ -114,6 +122,7 @@ const drawBarChart = function(data, options, element){
       largestBar += currentSetLargest;
     } else {
       currenrBarSet = i + 1;
+
       break;
     }
   }
@@ -122,11 +131,13 @@ const drawBarChart = function(data, options, element){
   // Generate bars
   for (let i = 0; i < numberOfBars; i++) {
     // use currenrBarSet
+    console.log(currenrBarSet);
 
   }
 
 }
 
+// Function to generate flexboxes for initialization
 const generateFlexbox = function(flexHeight, flexWidth){
     let flexy = document.createElement('div');
     flexy.style.display = 'flex';
@@ -136,6 +147,40 @@ const generateFlexbox = function(flexHeight, flexWidth){
     flexy.style.height = flexHeight + 'px';
     flexy.style.width = flexWidth + 'px';
     return flexy;
+}
+
+// Function to generate empty bars on initialzation
+const generateEmptyBars = function(barnNumber, barWidth) {
+ // add spaces between bars
+  let barDevider = document.createElement('div');
+  barDevider.style.width = (barWidth / 3) + 'px';
+  barDevider.style.background = 'white';
+  if (barnNumber > 0) {
+    document.getElementById('outerShell').appendChild(barDevider);
+  }
+
+  // generate bars
+    let createBar = document.createElement('div');
+    createBar.style.display = 'flex';
+    createBar.style.flexDirection = 'column-reverse';
+    createBar.style.width = barWidth + 'px';
+    createBar.value = 0;
+  for (let i = 1; i < 6; i++) {
+
+    let barValue = document.createElement('div');
+    barValue.style.display = 'flex';
+    barValue.style.justifyContent = 'center';
+    barValue.style.background = 'green';
+    barValue.innerText = i;
+    barValue.style.height = '30px';
+    barValue.style.borderBottom = '1px solid';
+    barValue.id = 'barSet' + i + '.' + (barnNumber + 1);
+    createBar.appendChild(barValue);
+
+  }
+  document.getElementById('outerShell').appendChild(createBar);
+
+
 }
 
 
