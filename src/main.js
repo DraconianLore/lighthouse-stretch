@@ -53,7 +53,7 @@ const drawBarChart = function(data, options, element){
   if (options.color) {
     barValueColour = options.color;
   }
-  let barValueAlignment = 'top';
+  let barValueAlignment = 'center';
   if (options.alignment) {
     switch(options.alignment) {
       case 'center':
@@ -93,10 +93,10 @@ const drawBarChart = function(data, options, element){
     }
   } else {
     //check data sets are compatible or throw an error
-    if (!document.getElementById('barSet1.' + numberOfBars - 1).value) {
+    if (document.getElementById('barSet1.' + numberOfBars).value == 0) {
       alert('Error: Cannot stack more data values than existing graph. \nPlease try again');
     }
-    if (!document.getElementById('barSet5.1').value) {
+    if (document.getElementById('barSet5.1').value > 0) {
       alert('Error: Maximum sets of data is 5. \nPlease create a new graph')
     }
   }
@@ -110,30 +110,44 @@ const drawBarChart = function(data, options, element){
     }
   }
   // Check for and add largest existing bar
-  for (let i = 0; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     if (document.getElementById('barSet' + i + '.1').value > 0) {
       let currentSetLargest = 0;
       for (let x = 0; x < numberOfBars; x++) {
         currentSetLargest = 0;
-        if (document.getElementById('barSet' + i + '.' + x).value > currentSetLargest) {
-          currentSetLargest = document.getElementById('barSet' + i + '.' + x).value;
+        if (document.getElementById('barSet' + i + '.' + (x + 1)).value > currentSetLargest) {
+          currentSetLargest = document.getElementById('barSet' + i + '.' + (x + 1)).value;
         }
       }
       largestBar += currentSetLargest;
     } else {
-      currenrBarSet = i + 1;
-
+      currenrBarSet = i;
       break;
     }
   }
   let barGraphHeight = (graphHeight * 0.8) / largestBar;
 
-  // Generate bars
+  // generate new bars
   for (let i = 0; i < numberOfBars; i++) {
-    // use currenrBarSet
-    console.log(currenrBarSet);
-
+    let currentBar;
+    // resize old bars
+    if (currenrBarSet > 1) {
+      for (let oldbar = 1; oldbar < currenrBarSet; oldbar++) {
+        currentBar = document.getElementById('barSet' + oldbar + '.' + (i+1));
+        currentBar.style.height = (currentBar.value * barGraphHeight) + 'px';
+      }
+    }
+    // set new bars
+    currentBar = document.getElementById('barSet' + currenrBarSet + '.' + (i + 1));
+    currentBar.value = data[i];
+    currentBar.style.height = (data[i] * barGraphHeight) + 'px';
+    currentBar.innerText = data[i];
+    currentBar.style.borderTop = '1px solid black';
+    currentBar.style.background = barColour;
+    currentBar.style.color = barValueColour;
+    currentBar.style.alignItems = barValueAlignment;
   }
+
 
 }
 
@@ -164,17 +178,18 @@ const generateEmptyBars = function(barnNumber, barWidth) {
     createBar.style.display = 'flex';
     createBar.style.flexDirection = 'column-reverse';
     createBar.style.width = barWidth + 'px';
-    createBar.value = 0;
+    createBar.id = 'bar' + (barnNumber + 1);
+
   for (let i = 1; i < 6; i++) {
 
     let barValue = document.createElement('div');
     barValue.style.display = 'flex';
     barValue.style.justifyContent = 'center';
     barValue.style.background = 'green';
-    barValue.innerText = i;
-    barValue.style.height = '30px';
-    barValue.style.borderBottom = '1px solid';
+    barValue.innerText = '';
+    barValue.style.height = '0px';
     barValue.id = 'barSet' + i + '.' + (barnNumber + 1);
+    barValue.value = 0;
     createBar.appendChild(barValue);
 
   }
