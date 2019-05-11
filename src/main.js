@@ -32,11 +32,11 @@ const drawBarChart = function(data, options, element){
   if (options.width) {
     graphWidth = options.width;
   }
-  let titleColour = 'black';
+  let titleColour = '#630000';
   if (options.titleColour) {
     titleColour = options.titleColour;
   }
-  let titleFontSize = '36px';
+  let titleFontSize = '3vh';
   if (options.titleSize) {
     titleFontSize = options.titleSize + 'px';
   }
