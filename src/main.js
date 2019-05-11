@@ -22,8 +22,6 @@ const drawBarChart = function(data, options, element){
   let numberOfBars = data.length;
   // set current working bar set
   let currenrBarSet;
-
-
   // check options and set defaults if empty
   let graphHeight = 300;
   if (options.height) {
@@ -67,8 +65,9 @@ const drawBarChart = function(data, options, element){
         break;
     }
   }
-  let barWidth = (graphWidth / numberOfBars) * 1.5;
 
+  // Set width of bars in graph based on data
+  let barWidth = (graphWidth / numberOfBars) * 1.5;
 
   // create title and container if this is the first data set
   if (!document.getElementById('outerShell')) {
@@ -87,12 +86,11 @@ const drawBarChart = function(data, options, element){
     outerShell.style.borderWidth = '5px';
     element.appendChild(outerShell);
     // generate empty bars
-
     for (let i = 0; i < numberOfBars; i++) {
       generateEmptyBars(i, barWidth);
     }
   } else {
-    //check data sets are compatible or throw an error
+    // check data sets are compatible or throw an error
     if (document.getElementById('barSet1.' + numberOfBars).value == 0) {
       alert('Error: Cannot stack more data values than existing graph. \nPlease try again');
     }
@@ -140,7 +138,6 @@ const drawBarChart = function(data, options, element){
     currentBar.style.alignItems = barValueAlignment;
   }
 
-
 }
 
 // Function to generate flexboxes for initialization
@@ -179,6 +176,8 @@ const generateEmptyBars = function(barnNumber, barWidth) {
     barValue.style.display = 'flex';
     barValue.style.justifyContent = 'center';
     barValue.style.background = 'green';
+    barValue.style.transitionProperty = 'height';
+    barValue.style.transitionDuration = '2s';
     barValue.innerText = '';
     barValue.style.height = '0px';
     barValue.id = 'barSet' + i + '.' + (barnNumber + 1);
@@ -189,10 +188,4 @@ const generateEmptyBars = function(barnNumber, barWidth) {
   document.getElementById('outerShell').appendChild(createBar);
 
 
-}
-
-
-// set bars to enlarge
-const resizeBar = function(newHeight, barToResize) {
-  $('#' + barToResize).animate({height: newHeight}, 1000);
 }
