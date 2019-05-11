@@ -105,22 +105,14 @@ const drawBarChart = function(data, options, element){
   let largestBar = 0;
   // Largest in new data set
   for (let i = 0; i < numberOfBars; i++) {
-    if (data[i] > largestBar) {
-      largestBar = data[i];
+    document.getElementById('bar' + (i + 1)).value += data[i];
+    if (document.getElementById('bar' + (i + 1)).value > largestBar) {
+      largestBar = document.getElementById('bar' + (i + 1)).value;
     }
   }
-  // Check for and add largest existing bar
+  // Check for existing data and set current bar set
   for (let i = 1; i < 6; i++) {
-    if (document.getElementById('barSet' + i + '.1').value > 0) {
-      let currentSetLargest = 0;
-      for (let x = 0; x < numberOfBars; x++) {
-        currentSetLargest = 0;
-        if (document.getElementById('barSet' + i + '.' + (x + 1)).value > currentSetLargest) {
-          currentSetLargest = document.getElementById('barSet' + i + '.' + (x + 1)).value;
-        }
-      }
-      largestBar += currentSetLargest;
-    } else {
+    if (!document.getElementById('barSet' + i + '.1').value > 0) {
       currenrBarSet = i;
       break;
     }
@@ -179,6 +171,7 @@ const generateEmptyBars = function(barnNumber, barWidth) {
     createBar.style.flexDirection = 'column-reverse';
     createBar.style.width = barWidth + 'px';
     createBar.id = 'bar' + (barnNumber + 1);
+    createBar.value = 0;
 
   for (let i = 1; i < 6; i++) {
 
