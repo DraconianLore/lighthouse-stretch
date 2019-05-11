@@ -6,7 +6,7 @@ Stretch project for Lighthouse Labs by Steven Wing
    
 * data: an array of numbers (the values to be put in the graph)
 * options:  
-  - height: height of the entire bar graph(default: 400px)
+  - height: height of the entire bar graph including title and labels(default: 400px)
   - width - width of the entire bar graph(default: 300px)
   - titleColour - Colour of the Title text
   - titleSize - size of title font in pixels
