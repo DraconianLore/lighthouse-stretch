@@ -4,7 +4,7 @@
   Usage:
     drawBarChart (data, options, element)
       data: an array of numbers (the values to be put in the graph)
-      options:  height: height of the entire bar graph(default: 300px)
+      options:  height: height of the entire bar graph(default: 400px)
                 width - width of the entire bar graph(default: 300px)
                 titleColour - Colour of the Title text
                 titleSize - size of title font in pixels
@@ -24,7 +24,7 @@ const drawBarChart = function(data, options, element){
   // set current working bar set
   let currenrBarSet;
   // check options and set defaults if empty
-  let graphHeight = 300;
+  let graphHeight = 400;
   if (options.height) {
     graphHeight = options.height;
   }
@@ -190,11 +190,16 @@ const generateEmptyBars = function(barnNumber, barWidth) {
   createLabel.style.display = 'flex';
   createLabel.style.alignItems = 'center';
   createLabel.style.justifyContent = 'center';
-  createLabel.style.fontSize = '90%';
   createLabel.style.width = barWidth + 'px';
   createLabel.style.height = document.getElementById('labelShell').style.height;
   createLabel.style.background = document.getElementById('barTitle').style.backgroundColor;
-  createLabel.id = 'label' + (barnNumber + 1);
+  let labelInner = document.createElement('div');
+  labelInner.style.writingMode = 'vertical-rl';
+  labelInner.style.textOrientation = 'sideways';
+  labelInner.style.padding = '2px';
+  labelInner.style.fontSize = '90%';
+  labelInner.id = 'label' + (barnNumber + 1);
+  createLabel.appendChild(labelInner);
   document.getElementById('labelShell').appendChild(createLabel);
 
 
