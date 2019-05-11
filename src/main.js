@@ -12,6 +12,7 @@
                 backgroundColor - bar colour (default blue)
                 color - colour of the text inside the bars(default: white)
                 alignment - alignment of the value inside the bar: top, center, bottom
+                labelText - Text for in the labels along the x-axis, bar number is appended
       element:  the element ID of the DOM element you want the bar placed into
 
 */
@@ -65,6 +66,10 @@ const drawBarChart = function(data, options, element){
         break;
     }
   }
+  let labelText = 'Data Set '
+  if (options.labelText) {
+    labelText = options.labelText + ' ';
+  }
 
   // Set width of bars in graph based on data
   let barWidth = (graphWidth / numberOfBars) * 1.5;
@@ -72,22 +77,29 @@ const drawBarChart = function(data, options, element){
   // create title and container if this is the first data set
   if (!document.getElementById('outerShell')) {
     // Generate title
-    let chartTitle = generateFlexbox(graphHeight / 5, graphWidth);
+    let chartTitle = generateFlexbox(graphHeight / 10, graphWidth);
     chartTitle.style.alignItems = 'center';
     chartTitle.style.backgroundColor = titleBG;
     chartTitle.style.color = titleColour;
     chartTitle.style.fontSize = titleFontSize;
     chartTitle.innerHTML = '<b>' + options.title + '</b>';
+    chartTitle.id = 'barTitle';
     element.appendChild(chartTitle);
     // Generate Bargraph Shell
-    let outerShell = generateFlexbox(graphHeight * 0.8, graphWidth);
+    let outerShell = generateFlexbox(graphHeight * 0.7, graphWidth);
     outerShell.id = 'outerShell';
     outerShell.style.borderStyle = 'solid';
     outerShell.style.borderWidth = '5px';
     element.appendChild(outerShell);
+    // generate label shell
+    let labelShell = generateFlexbox(graphHeight * 0.2, graphWidth);
+    labelShell.style.padding = '0px'
+    labelShell.id = 'labelShell';
+    element.appendChild(labelShell);
     // generate empty bars
     for (let i = 0; i < numberOfBars; i++) {
       generateEmptyBars(i, barWidth);
+      document.getElementById('label' + (i + 1)).innerText = labelText + (i + 1);
     }
   } else {
     // check data sets are compatible or throw an error
@@ -115,7 +127,7 @@ const drawBarChart = function(data, options, element){
       break;
     }
   }
-  let barGraphHeight = (graphHeight * 0.8) / largestBar;
+  let barGraphHeight = (graphHeight * 0.7) / largestBar;
 
   // generate new bars
   for (let i = 0; i < numberOfBars; i++) {
@@ -158,17 +170,33 @@ const generateEmptyBars = function(barnNumber, barWidth) {
   let barDevider = document.createElement('div');
   barDevider.style.width = (barWidth / 3) + 'px';
   barDevider.style.background = 'white';
+  let labelDevider = document.createElement('div');
+  labelDevider.style.width = (barWidth / 3) + 'px';
   if (barnNumber > 0) {
     document.getElementById('outerShell').appendChild(barDevider);
+    document.getElementById('labelShell').appendChild(labelDevider);
   }
 
   // generate bars
-    let createBar = document.createElement('div');
-    createBar.style.display = 'flex';
-    createBar.style.flexDirection = 'column-reverse';
-    createBar.style.width = barWidth + 'px';
-    createBar.id = 'bar' + (barnNumber + 1);
-    createBar.value = 0;
+  let createBar = document.createElement('div');
+  createBar.style.display = 'flex';
+  createBar.style.flexDirection = 'column-reverse';
+  createBar.style.width = barWidth + 'px';
+  createBar.id = 'bar' + (barnNumber + 1);
+  createBar.value = 0;
+
+  // generate labels
+  let createLabel = document.createElement('div');
+  createLabel.style.display = 'flex';
+  createLabel.style.alignItems = 'center';
+  createLabel.style.justifyContent = 'center';
+  createLabel.style.fontSize = '90%';
+  createLabel.style.width = barWidth + 'px';
+  createLabel.style.height = document.getElementById('labelShell').style.height;
+  createLabel.style.background = document.getElementById('barTitle').style.backgroundColor;
+  createLabel.id = 'label' + (barnNumber + 1);
+  document.getElementById('labelShell').appendChild(createLabel);
+
 
   for (let i = 1; i < 6; i++) {
 
