@@ -5,11 +5,12 @@
     drawBarChart (data, options, element)
       data: an array of numbers (the values to be put in the graph)
       options:  height: height of the entire bar graph(default: 400px)
-                width - width of the entire bar graph(default: 300px)
+                width - width of the entire bar graph(default: 500px)
                 titleColour - Colour of the Title text
                 titleSize - size of title font in pixels
                 titleBackground - Background colour for title
-                backgroundColor - bar colour (default blue)
+                backgroundColor - bar colour (default: blue)
+                barSpacing - space between bars. Width of the bars devided by this number (default: 3)
                 color - colour of the text inside the bars(default: white)
                 alignment - alignment of the value inside the bar: top, center, bottom
                 labelText - Text for in the labels along the x-axis, bar number is appended
@@ -28,7 +29,7 @@ const drawBarChart = function(data, options, element){
   if (options.height) {
     graphHeight = options.height;
   }
-  let graphWidth = 300;
+  let graphWidth = 500;
   if (options.width) {
     graphWidth = options.width;
   }
@@ -36,13 +37,17 @@ const drawBarChart = function(data, options, element){
   if (options.titleColour) {
     titleColour = options.titleColour;
   }
-  let titleFontSize = '3vh';
+  let titleFontSize = 'xx-large';
   if (options.titleSize) {
     titleFontSize = options.titleSize + 'px';
   }
   let titleBG = '#eeeeee';
   if (options.titleBackground) {
     titleBG = options.titleBackground;
+  }
+  let barSpace = 3;
+  if (options.barSpacing) {
+    barSpace = options.barSpacing;
   }
   let barColour = 'blue';
   if (options.backgroundColor) {
@@ -98,7 +103,7 @@ const drawBarChart = function(data, options, element){
     element.appendChild(labelShell);
     // generate empty bars
     for (let i = 0; i < numberOfBars; i++) {
-      generateEmptyBars(i, barWidth);
+      generateEmptyBars(i, barWidth, barSpace);
       document.getElementById('label' + (i + 1)).innerText = labelText + (i + 1);
     }
   } else {
@@ -165,13 +170,13 @@ const generateFlexbox = function(flexHeight, flexWidth){
 }
 
 // Function to generate empty bars on initialzation
-const generateEmptyBars = function(barnNumber, barWidth) {
+const generateEmptyBars = function(barnNumber, barWidth, barSpacing) {
  // add spaces between bars
   let barDevider = document.createElement('div');
-  barDevider.style.width = (barWidth / 3) + 'px';
+  barDevider.style.width = (barWidth / barSpacing) + 'px';
   barDevider.style.background = 'white';
   let labelDevider = document.createElement('div');
-  labelDevider.style.width = (barWidth / 3) + 'px';
+  labelDevider.style.width = (barWidth / barSpacing) + 'px';
   if (barnNumber > 0) {
     document.getElementById('outerShell').appendChild(barDevider);
     document.getElementById('labelShell').appendChild(labelDevider);
