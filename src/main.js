@@ -19,7 +19,10 @@
 */
 
 const drawBarChart = function(data, options, element){
-
+  // Check if element is provided, if no element provided create graph at end of body
+  if (!element) {
+    element = document.querySelector('body');
+  }
   // get number of values in data
   let numberOfBars = data.length;
   // set current working bar set
@@ -81,6 +84,11 @@ const drawBarChart = function(data, options, element){
 
   // create title and container if this is the first data set
   if (!document.getElementById('outerShell')) {
+    // Center Bar Graph
+    let barGraphShell = document.createElement('div');
+    barGraphShell.style.display = 'flex';
+    barGraphShell.style.flexDirection = 'column';
+    barGraphShell.style.alignItems = 'center';
     // Generate title
     let chartTitle = generateFlexbox(graphHeight / 10, graphWidth);
     chartTitle.style.alignItems = 'center';
@@ -89,18 +97,21 @@ const drawBarChart = function(data, options, element){
     chartTitle.style.fontSize = titleFontSize;
     chartTitle.innerHTML = '<b>' + options.title + '</b>';
     chartTitle.id = 'barTitle';
-    element.appendChild(chartTitle);
+    barGraphShell.appendChild(chartTitle);
     // Generate Bargraph Shell
     let outerShell = generateFlexbox(graphHeight * 0.7, graphWidth);
     outerShell.id = 'outerShell';
     outerShell.style.borderStyle = 'solid';
     outerShell.style.borderWidth = '5px';
-    element.appendChild(outerShell);
+    barGraphShell.appendChild(outerShell);
     // generate label shell
     let labelShell = generateFlexbox(graphHeight * 0.2, graphWidth);
     labelShell.style.padding = '0px'
     labelShell.id = 'labelShell';
-    element.appendChild(labelShell);
+    barGraphShell.appendChild(labelShell);
+
+    // Draw Bargraph
+    element.appendChild(barGraphShell);
     // generate empty bars
     for (let i = 0; i < numberOfBars; i++) {
       generateEmptyBars(i, barWidth, barSpace);
