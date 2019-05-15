@@ -207,9 +207,8 @@ const generateEmptyBars = function(barnNumber, barWidth, barSpacing) {
   createLabel.appendChild(labelInner);
   document.getElementById('labelShell').appendChild(createLabel);
 
-
+  // generate bar insides
   for (let i = 1; i < 6; i++) {
-
     let barValue = document.createElement('div');
     barValue.style.display = 'flex';
     barValue.style.justifyContent = 'center';
