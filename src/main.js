@@ -25,39 +25,39 @@ const drawBarChart = function(data, options, element){
   // set current working bar set
   let currenrBarSet;
   // check options and set defaults if empty
-  let graphHeight = 400;
+  let graphHeight = 400;  // Graph Height
   if (options.height) {
     graphHeight = options.height;
   }
-  let graphWidth = 500;
+  let graphWidth = 500;   // Graph Width
   if (options.width) {
     graphWidth = options.width;
   }
-  let titleColour = '#630000';
+  let titleColour = '#630000';  // Title Colour
   if (options.titleColour) {
     titleColour = options.titleColour;
   }
-  let titleFontSize = 'xx-large';
+  let titleFontSize = 'xx-large'; // Title font size
   if (options.titleSize) {
     titleFontSize = options.titleSize + 'px';
   }
-  let titleBG = '#eeeeee';
+  let titleBG = '#eeeeee';  // Title and Label Background Colour
   if (options.titleBackground) {
     titleBG = options.titleBackground;
   }
-  let barSpace = 3;
+  let barSpace = 3;   // Spacing between bars
   if (options.barSpacing) {
     barSpace = options.barSpacing;
   }
-  let barColour = 'blue';
+  let barColour = 'blue'; // Bar colour
   if (options.backgroundColor) {
     barColour = options.backgroundColor;
   }
-  let barValueColour = 'white';
+  let barValueColour = 'white'; // Bar text colour
   if (options.color) {
     barValueColour = options.color;
   }
-  let barValueAlignment = 'center';
+  let barValueAlignment = 'center'; // Bar text alignment
   if (options.alignment) {
     switch(options.alignment) {
       case 'center':
@@ -71,7 +71,7 @@ const drawBarChart = function(data, options, element){
         break;
     }
   }
-  let labelText = 'Data Set '
+  let labelText = 'Data Set '; // Label text
   if (options.labelText) {
     labelText = options.labelText + ' ';
   }
