@@ -14,7 +14,7 @@
                 color - colour of the text inside the bars(default: white)
                 alignment - alignment of the value inside the bar: top, center, bottom
                 labelText - Text for in the labels along the x-axis, bar number is appended
-      element:  the element ID of the DOM element you want the bar placed into
+      element:  the element ID of the DOM element you want the bar placed into (if none provided will append to end of body)
 
 */
 
