@@ -21,4 +21,4 @@ Stretch project for Lighthouse Labs by Steven Wing
 *For multiple value charts, repeat the drawBarChart call with new data.*<br>
   Restrictions:<br>
     Extra set of data cannot have more data values than the first<br>
-    Currently you may only have five data sets per graph to reduce graph being too compacted
+    By default you may only have five data sets per graph to reduce graph being too compacted

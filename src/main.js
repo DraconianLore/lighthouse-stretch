@@ -23,6 +23,8 @@ const drawBarChart = function(data, options, element){
   if (!element) {
     element = document.querySelector('body');
   }
+  // set maximum number of bars
+  let maxBars = 5;
   // get number of values in data
   let numberOfBars = data.length;
   // set current working bar set
@@ -86,9 +88,7 @@ const drawBarChart = function(data, options, element){
   if (!document.getElementById('outerShell')) {
     // Center Bar Graph
     let barGraphShell = document.createElement('div');
-    barGraphShell.style.display = 'flex';
-    barGraphShell.style.flexDirection = 'column';
-    barGraphShell.style.alignItems = 'center';
+    barGraphShell.style = 'display: flex; flex-direction: column; align-items: center';
     // Generate title
     let chartTitle = generateFlexbox(graphHeight / 10, graphWidth);
     chartTitle.style.alignItems = 'center';
@@ -109,12 +109,11 @@ const drawBarChart = function(data, options, element){
     labelShell.style.padding = '0px'
     labelShell.id = 'labelShell';
     barGraphShell.appendChild(labelShell);
-
     // Draw Bargraph
     element.appendChild(barGraphShell);
     // generate empty bars
     for (let i = 0; i < numberOfBars; i++) {
-      generateEmptyBars(i, barWidth, barSpace);
+      generateEmptyBars(i, barWidth, barSpace, maxBars);
       document.getElementById('label' + (i + 1)).innerText = labelText + (i + 1);
     }
   } else {
@@ -122,8 +121,8 @@ const drawBarChart = function(data, options, element){
     if (document.getElementById('barSet1.' + numberOfBars).value == 0) {
       alert('Error: Cannot stack more data values than existing graph. \nPlease try again');
     }
-    if (document.getElementById('barSet5.1').value > 0) {
-      alert('Error: Maximum sets of data is 5. \nPlease create a new graph')
+    if (document.getElementById('barSet' + maxBars + '.1').value > 0) {
+      alert('Error: Maximum sets of data is ' + maxBars + '. \nPlease create a new graph')
     }
   }
 
@@ -137,7 +136,7 @@ const drawBarChart = function(data, options, element){
     }
   }
   // Check for existing data and set current bar set
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i <= maxBars; i++) {
     if (!document.getElementById('barSet' + i + '.1').value > 0) {
       currenrBarSet = i;
       break;
@@ -181,7 +180,7 @@ const generateFlexbox = function(flexHeight, flexWidth){
 }
 
 // Function to generate empty bars on initialzation
-const generateEmptyBars = function(barnNumber, barWidth, barSpacing) {
+const generateEmptyBars = function(barnNumber, barWidth, barSpacing, maxBars) {
  // add spaces between bars
   let barDevider = document.createElement('div');
   barDevider.style.width = (barWidth / barSpacing) + 'px';
@@ -195,39 +194,31 @@ const generateEmptyBars = function(barnNumber, barWidth, barSpacing) {
 
   // generate bars
   let createBar = document.createElement('div');
-  createBar.style.display = 'flex';
-  createBar.style.flexDirection = 'column-reverse';
+  createBar.style = 'display: flex; flex-direction: column-reverse';
   createBar.style.width = barWidth + 'px';
   createBar.id = 'bar' + (barnNumber + 1);
   createBar.value = 0;
 
   // generate labels
   let createLabel = document.createElement('div');
-  createLabel.style.display = 'flex';
-  createLabel.style.alignItems = 'center';
-  createLabel.style.justifyContent = 'center';
+  createLabel.style = 'display: flex; align-items: center; justify-content: center';
   createLabel.style.width = barWidth + 'px';
   createLabel.style.height = document.getElementById('labelShell').style.height;
   createLabel.style.background = document.getElementById('barTitle').style.backgroundColor;
+
   let labelInner = document.createElement('div');
-  labelInner.style.writingMode = 'vertical-rl';
-  labelInner.style.textOrientation = 'sideways';
-  labelInner.style.padding = '2px';
-  labelInner.style.fontSize = '90%';
+  labelInner.style = 'writing-mode: vertical-rl; text-orientation: sideways; padding: 2px; font-size: 90%';
   labelInner.id = 'label' + (barnNumber + 1);
   createLabel.appendChild(labelInner);
   document.getElementById('labelShell').appendChild(createLabel);
 
   // generate bar insides
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i <= maxBars; i++) {
     let barValue = document.createElement('div');
-    barValue.style.display = 'flex';
-    barValue.style.justifyContent = 'center';
-    barValue.style.background = 'green';
+    barValue.style = 'display: flex; justify-content: center; height: 0px;';
     barValue.style.transitionProperty = 'height';
     barValue.style.transitionDuration = '2s';
     barValue.innerText = '';
-    barValue.style.height = '0px';
     barValue.id = 'barSet' + i + '.' + (barnNumber + 1);
     barValue.value = 0;
     createBar.appendChild(barValue);
