@@ -17,7 +17,7 @@
       element:  the element ID of the DOM element you want the bar placed into (if none provided will append to end of body)
 
 */
-
+var maxBarsWide;
 const drawBarChart = function(data, options, element){
   // Check if element is provided, if no element provided create graph at end of body
   if (!element) {
@@ -86,6 +86,7 @@ const drawBarChart = function(data, options, element){
 
   // create title and container if this is the first data set
   if (!document.getElementById('outerShell')) {
+    maxBarsWide = numberOfBars;
     // Center Bar Graph
     let barGraphShell = document.createElement('div');
     barGraphShell.style = 'display: flex; flex-direction: column; align-items: center';
@@ -113,16 +114,18 @@ const drawBarChart = function(data, options, element){
     element.appendChild(barGraphShell);
     // generate empty bars
     for (let i = 0; i < numberOfBars; i++) {
-      generateEmptyBars(i, barWidth, barSpace, maxBars);
+      generateEmptyBars(i, barWidth, barSpace, maxBars, graphHeight)
       document.getElementById('label' + (i + 1)).innerText = labelText + (i + 1);
     }
   } else {
     // check data sets are compatible or throw an error
-    if (document.getElementById('barSet1.' + numberOfBars).value == 0) {
+    if (maxBarsWide < numberOfBars) {
       alert('Error: Cannot stack more data values than existing graph. \nPlease try again');
+      return;
     }
     if (document.getElementById('barSet' + maxBars + '.1').value > 0) {
       alert('Error: Maximum sets of data is ' + maxBars + '. \nPlease create a new graph')
+      return;
     }
   }
 
@@ -157,10 +160,10 @@ const drawBarChart = function(data, options, element){
     // set new bars
     currentBar = document.getElementById('barSet' + currenrBarSet + '.' + (i + 1));
     currentBar.value = data[i];
-    currentBar.style.height = (data[i] * barGraphHeight) + 'px';
+    currentBar.style.background = barColour;
+    setTimeout(() => { currentBar.style.height = (data[i] * barGraphHeight) + 'px' }, 0);
     currentBar.innerText = data[i];
     currentBar.style.borderTop = '1px solid black';
-    currentBar.style.background = barColour;
     currentBar.style.color = barValueColour;
     currentBar.style.alignItems = barValueAlignment;
   }
@@ -180,7 +183,7 @@ const generateFlexbox = function(flexHeight, flexWidth){
 }
 
 // Function to generate empty bars on initialzation
-const generateEmptyBars = function(barnNumber, barWidth, barSpacing, maxBars) {
+const generateEmptyBars = function(barnNumber, barWidth, barSpacing, maxBars, gHeight) {
  // add spaces between bars
   let barDevider = document.createElement('div');
   barDevider.style.width = (barWidth / barSpacing) + 'px';
@@ -196,6 +199,7 @@ const generateEmptyBars = function(barnNumber, barWidth, barSpacing, maxBars) {
   let createBar = document.createElement('div');
   createBar.style = 'display: flex; flex-direction: column-reverse';
   createBar.style.width = barWidth + 'px';
+  createBar.style.height = gHeight* 0.7 + 'px';
   createBar.id = 'bar' + (barnNumber + 1);
   createBar.value = 0;
 
