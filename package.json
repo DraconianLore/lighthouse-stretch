@@ -7,7 +7,7 @@
   "devDependencies": {
     "eslint": "^4.18.2",
     "eslint-config-lighthouselabs": "lighthouse-labs/eslint-config-lighthouselabs",
-    "jquery": "^3.4.0"
+    "jquery": "^3.5.0"
   },
   "dependencies": {}
 }
